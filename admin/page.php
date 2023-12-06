@@ -2,26 +2,25 @@
 
 function ekhos_ids_settings_page()
 {
-    // Vérifiez les droits de l'utilisateur
     if (!current_user_can('manage_options')) {
         wp_die(__('Vous n’avez pas les droits suffisants pour accéder à cette page.'));
     }
 
-    // Contenu de la page de paramètres
     echo '<div class="wrap">';
     echo '<h1>Ekhos IDS Settings</h1>';
-    // Ici, ajoutez des formulaires et des options pour les paramètres de votre plugin
     echo '</div>';
     global $wpdb;
     $sounds = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}ekhos_ids_sounds");
 
     foreach ($sounds as $sound) {
-        echo "<div>{$sound->title} - <audio controls src='{$sound->sound_url}'></audio> - <a href='?delete_sound={$sound->id}'>Supprimer</a></div>";
+        $delete_url = wp_nonce_url(admin_url('tools.php?page=ekhos-ids&delete_sound=' . $sound->id), 'ekhos_ids_delete_sound_' . $sound->id);
+        echo "<div>{$sound->title} - <audio controls src='{$sound->sound_url}'></audio> - <a href='{$delete_url}'>Supprimer</a></div>";
     }
 
     ?>
 
     <form action="" method="post" enctype="multipart/form-data">
+        <?php wp_nonce_field('ekhos_ids_upload_sound_action', 'ekhos_ids_upload_sound_nonce'); ?>
         <input type="text" name="title" placeholder="Titre du son" required>
         <input type="file" name="sound_file" required>
         <input type="submit" name="upload_sound" value="Upload">
@@ -29,17 +28,27 @@ function ekhos_ids_settings_page()
 
     <?php
 
+    if (isset($_GET['delete_sound']) && current_user_can('manage_options')) {
+        $sound_id = intval($_GET['delete_sound']);
+        $table_name = $wpdb->prefix . 'ekhos_ids_sounds';
+        $sound = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name WHERE id = %d", $sound_id));
+        if ($sound) {
+            $file_path = str_replace(content_url(), WP_CONTENT_DIR, $sound->sound_url);
+            if (file_exists($file_path)) {
+                unlink($file_path);
+            }
+            $wpdb->delete($table_name, array('id' => $sound_id), array('%d'));
+        }
+
+        wp_redirect(admin_url('tools.php?page=ekhos-ids'));
+        exit;
+    }
+
     if (isset($_POST['upload_sound']) && current_user_can('manage_options')) {
 
         $table_name = $wpdb->prefix . 'ekhos_ids_sounds';
-
-        // Vérifiez le nonce pour la sécurité
         check_admin_referer('ekhos_ids_upload_sound_action', 'ekhos_ids_upload_sound_nonce');
-
-        // Obtenez le titre du son
         $title = sanitize_text_field($_POST['title']);
-
-        // Gérez l'upload du fichier
         if (!function_exists('wp_handle_upload')) {
             require_once(ABSPATH . 'wp-admin/includes/file.php');
         }
@@ -50,10 +59,7 @@ function ekhos_ids_settings_page()
         $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
 
         if ($movefile && !isset($movefile['error'])) {
-            // Fichier uploadé avec succès
             $sound_url = $movefile['url'];
-
-            // Enregistrez les données en base de données
             $wpdb->insert(
                 $table_name,
                 array(
@@ -67,7 +73,6 @@ function ekhos_ids_settings_page()
             );
             echo "Le son a été uploadé et enregistré avec succès.";
         } else {
-            // Erreur lors de l'upload
             echo $movefile['error'];
         }
     }

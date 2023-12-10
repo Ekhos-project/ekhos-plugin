@@ -43,5 +43,35 @@
         @include font($title, 24px, 700, $color2);
       }
     }
+
+    &_navigation {
+      position: relative;
+      border-top: 1px solid transparentize($color0, .8);
+      border-bottom: 1px solid transparentize($color0, .8);
+      width: 100%;
+      margin-top: 20px;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      a {
+        @include font($text, 14px, 400, $color0, $textDecoration: underline);
+        outline: none;
+
+        &:hover {
+          color: $color2;
+        }
+
+        &:active {
+          color: $color2;
+        }
+
+        &:focus {
+          color: $color2;
+          box-shadow: none;
+        }
+      }
+    }
   }
 }

@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+@font-face {
+  font-family: "OwnersWide";
+  src: url("/wp-content/plugins/ekhos/assets/fonts/owners-wide.ttf") format("truetype");
+}
+#wpcontent {
+  padding-left: 0;
+  background-color: #1E1E1E;
+}
+
+#idsbody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+#idsheader {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 20px;
+}
+#idsheader .idsheader_logo {
+  display: flex;
+  align-items: center;
+}
+#idsheader .idsheader_logo img {
+  height: 50px;
+  width: auto;
+}
+#idsheader .idsheader_logo h1 {
+  padding-left: 10px;
+  font-family: "OwnersWide";
+  font-size: 24px;
+  font-weight: 700;
+  color: #5DC4E5;
+  line-height: 1.1em;
+  text-transform: unset;
+  text-align: left;
+  text-decoration: none;
+}
+@media (max-width: 1024px) {
+  #idsheader .idsheader_logo h1 {
+    font-size: 21.6px;
+  }
+}
+@media (max-width: 767px) {
+  #idsheader .idsheader_logo h1 {
+    font-size: 20.4px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

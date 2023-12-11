@@ -7,8 +7,12 @@
   src: url('/wp-content/plugins/ekhos/assets/fonts/owners-wide.ttf') format('truetype');
 }
 
-#wpcontent {
+.tools_page_ekhos-ids #wpcontent {
   padding-left: 0;
+  background-color: $color1;
+}
+
+.tools_page_ekhos-ids #wpwrap {
   background-color: $color1;
 }
 
@@ -70,6 +74,163 @@
         &:focus {
           color: $color2;
           box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+#idslinked {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 20px;
+
+  .idslinked {
+    &_action {
+      position: relative;
+      button {
+        @include button($startIcon: "\e145", $fontColor: $color1, $hoverFontColor: $color1);
+      }
+    }
+    
+    &_items {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding-top: 40px;
+      width: 100%;
+      max-width: 1200px;
+
+      &_name {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: darken($color0, 60%);
+        padding: 5px 0;
+
+        span {
+          @include font($text, 16px, 500, $color0);
+        }
+
+        &_section {
+          padding: 0 5px;
+          box-sizing: border-box;
+          width: 25%;
+          max-width: 200px;
+        }
+        &_character {
+          padding: 0 5px;
+          box-sizing: border-box;
+          width: 25%;
+          max-width: 200px;
+        }
+        &_audio {
+          padding: 0 5px;
+          box-sizing: border-box;
+          width: 35%;
+          max-width: 300px;
+        }
+        &_actions {
+          padding: 0 5px;
+          box-sizing: border-box;
+          width: 15%;
+          max-width: 80px;
+        }
+      }
+    }
+
+    &_item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 5px 0;
+      background-color: $color0;
+
+      &:nth-child(odd) {
+        background-color: darken($color0, 10%);
+      }
+
+      &_section {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 0 5px;
+        box-sizing: border-box;
+        width: 25%;
+        max-width: 200px;
+        text-decoration: none;
+
+        small {
+          @include font($text, 12px, 500, $color1);
+        }
+        span {
+          @include font($text, 16px, 600, $color1);
+        }
+      }
+
+      &_character {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 0 5px;
+        box-sizing: border-box;
+        width: 25%;
+        max-width: 200px;
+
+        small {
+          @include font($text, 12px, 500, $color1);
+        }
+        span {
+          @include font($text, 16px, 600, $color1);
+        }
+      }
+
+      &_audio {
+        padding: 0 5px;
+        box-sizing: border-box;
+        width: 35%;
+        max-width: 300px;
+      }
+
+      &_actions {
+        display: flex;
+        gap: 10px;
+        padding: 0 5px;
+        box-sizing: border-box;
+        width: 15%;
+        max-width: 80px;
+
+        button {
+          position: relative;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          border: none;
+          width: 40px;
+          min-width: 40px;
+          height: 40px;
+          min-height: 40px;
+          border-radius: 50%;
+          cursor: pointer;
+
+          &::before {
+            @include icon("\e872", 20px);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+          }
+
+          &.idslinked_item_edit {
+            &::before {
+              @include icon("\e3c9", 20px);
+            }
+          }
         }
       }
     }

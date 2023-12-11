@@ -35,7 +35,7 @@ $tablet: 767px;
 
 @mixin font(
   $fontFamily: $text,
-  $fontSize: 1.6rem,
+  $fontSize: 16px,
   $fontWeight: 500,
   $fontColor: $color1,
   $lineHeight: 1.1em,
@@ -78,7 +78,7 @@ $tablet: 767px;
   }
 }
 
-@mixin icon($code: "\e88a", $fontSize: 2.4rem) {
+@mixin icon($code: "\e88a", $fontSize: 24px) {
   content: $code;
   font-family: "Material Symbols Rounded";
   font-weight: normal;
@@ -97,7 +97,7 @@ $tablet: 767px;
 
 @mixin button(
   $font: $text,
-  $fontSize: 2rem,
+  $fontSize: 14px,
   $fontWeight: 500,
   $fontColor: $color0,
   $startIcon: "\e88a",
@@ -108,13 +108,13 @@ $tablet: 767px;
   $hoverBorderColor: darken($borderColor, 25%),
   $backgroundColor: $color2,
   $hoverBackgroundColor: darken($backgroundColor, 25%),
-  $padding: 1.5rem 3rem,
-  $hoverPadding: 1.5rem 3rem,
+  $padding: 8px 14px,
+  $hoverPadding: 8px 14px,
 ) {
   position: relative;
   padding: $padding;
   border-radius: $borderRadius;
-  border: 0.3rem solid $borderColor;
+  border: 2px solid $borderColor;
   box-sizing: border-box;
   background-color: $backgroundColor;
   display: flex;
@@ -128,7 +128,7 @@ $tablet: 767px;
   outline: none;
 
   &:focus-visible {
-    outline: 0.2rem solid $color0;
+    outline: 1px solid $color0;
   }
 
   &:hover {
@@ -140,15 +140,15 @@ $tablet: 767px;
 
   &.starticon {
     &::before {
-      @include icon($code: $startIcon, $fontSize: 3rem);
-      padding-right: 1rem;
+      @include icon($code: $startIcon, $fontSize: 24px);
+      padding-right: 4px;
     }
   }
 
   &.endicon {
     &::after {
-      @include icon($code: $endIcon, $fontSize: 3rem);
-      padding-left: 1rem;
+      @include icon($code: $endIcon, $fontSize: 24px);
+      padding-left: 4px;
     }
   }
 }

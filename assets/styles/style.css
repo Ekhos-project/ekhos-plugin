@@ -93,7 +93,7 @@
 #idsheader .idsheader_navigation a:hover {
   color: #5DC4E5;
 }
-#idsheader .idsheader_navigation a:active {
+#idsheader .idsheader_navigation a:active, #idsheader .idsheader_navigation a.active {
   color: #5DC4E5;
 }
 #idsheader .idsheader_navigation a:focus {
@@ -103,10 +103,13 @@
 
 #idslinked {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+}
+#idslinked.active {
+  display: flex;
 }
 #idslinked .idslinked_action {
   position: relative;
@@ -438,10 +441,13 @@
 
 #idscharacter {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+}
+#idscharacter.active {
+  display: flex;
 }
 #idscharacter .idscharacter_action {
   position: relative;
@@ -789,10 +795,13 @@
 
 #idssound {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+}
+#idssound.active {
+  display: flex;
 }
 #idssound .idssound_action {
   position: relative;
@@ -1085,10 +1094,13 @@
 
 #idssettings {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+}
+#idssettings.active {
+  display: flex;
 }
 #idssettings .idssettings_items {
   display: flex;

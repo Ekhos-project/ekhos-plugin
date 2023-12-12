@@ -12,5 +12,6 @@ function ekhos_ids_settings_page()
         include_once "settings.php";
         ?>
     </div>
+    <script src="<?= plugin_dir_url(__DIR__) . 'assets/scripts/script.js' ?>" type="module"></script>
     <?php
 }

@@ -67,7 +67,7 @@
           color: $color2;
         }
 
-        &:active {
+        &:active, &.active {
           color: $color2;
         }
 
@@ -82,10 +82,14 @@
 
 #idslinked {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
 
   .idslinked {
     &_action {
@@ -258,10 +262,14 @@
 
 #idscharacter {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
 
   .idscharacter {
     &_action {
@@ -459,10 +467,14 @@
 
 #idssound {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
 
   .idssound {
     &_action {
@@ -625,12 +637,17 @@
     }
   }
 }
+
 #idssettings {
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
   padding-top: 20px;
+  display: none;
+
+  &.active {
+    display: flex;
+  }
 
   .idssettings {
     &_items {

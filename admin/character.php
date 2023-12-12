@@ -26,6 +26,7 @@
             </div>
             <div class="idscharacter_item_sound">
                 <audio controls src=""></audio>
+                <button class="starticon idscharacter_item_delete"></button>
             </div>
             <div class="idscharacter_item_actions">
                 <button class="starticon idscharacter_item_edit"></button>

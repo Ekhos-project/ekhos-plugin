@@ -7,6 +7,7 @@ function ekhos_ids_settings_page()
         <?php
         include_once "header.php";
         include_once "linked.php";
+        include_once "character.php";
         ?>
     </div>
     <?php

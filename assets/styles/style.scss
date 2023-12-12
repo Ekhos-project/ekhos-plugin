@@ -108,36 +108,42 @@
         width: 100%;
         display: flex;
         align-items: center;
-        background-color: darken($color0, 60%);
-        padding: 5px 0;
+        background-color: darken($color0, 15%);
+        border-bottom: 1px solid darken($color0, 40%);
+        padding: 15px 0;
 
         span {
-          @include font($text, 16px, 500, $color0);
+          @include font($text, 16px, 600, $color1);
         }
 
         &_section {
-          padding: 0 5px;
+          padding: 0 5px 0 20px;
           box-sizing: border-box;
           width: 25%;
           max-width: 200px;
         }
         &_character {
+          display: flex;
+          justify-content: center;
           padding: 0 5px;
           box-sizing: border-box;
           width: 25%;
           max-width: 200px;
         }
         &_audio {
+          display: flex;
+          justify-content: center;
           padding: 0 5px;
           box-sizing: border-box;
           width: 35%;
-          max-width: 300px;
+          flex-grow: 1;
         }
         &_actions {
-          padding: 0 5px;
+          display: flex;
+          padding: 0 20px 0 5px;
           box-sizing: border-box;
+          justify-content: flex-end;
           width: 15%;
-          max-width: 80px;
         }
       }
     }
@@ -148,24 +154,24 @@
       align-items: center;
       width: 100%;
       padding: 5px 0;
-      background-color: $color0;
+      background-color: darken($color0, 2%);
 
       &:nth-child(odd) {
-        background-color: darken($color0, 10%);
+        background-color: darken($color0, 7%);
       }
 
       &_section {
         display: flex;
         flex-direction: column;
         gap: 2px;
-        padding: 0 5px;
+        padding: 0 5px 0 20px;
         box-sizing: border-box;
         width: 25%;
         max-width: 200px;
         text-decoration: none;
 
         small {
-          @include font($text, 12px, 500, $color1);
+          @include font($text, 12px, 500, lighten($color1, 30%));
         }
         span {
           @include font($text, 16px, 600, $color1);
@@ -175,6 +181,7 @@
       &_character {
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 2px;
         padding: 0 5px;
         box-sizing: border-box;
@@ -182,7 +189,7 @@
         max-width: 200px;
 
         small {
-          @include font($text, 12px, 500, $color1);
+          @include font($text, 12px, 500, lighten($color1, 30%));
         }
         span {
           @include font($text, 16px, 600, $color1);
@@ -190,19 +197,22 @@
       }
 
       &_audio {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 0 5px;
         box-sizing: border-box;
         width: 35%;
-        max-width: 300px;
+        flex-grow: 1;
       }
 
       &_actions {
         display: flex;
+        justify-content: flex-end;
         gap: 10px;
-        padding: 0 5px;
+        padding: 0 20px 0 5px;
         box-sizing: border-box;
         width: 15%;
-        max-width: 80px;
 
         button {
           position: relative;
@@ -216,9 +226,11 @@
           min-height: 40px;
           border-radius: 50%;
           cursor: pointer;
+          background-color: $color1;
 
           &::before {
             @include icon("\e872", 20px);
+            color: $color0;
             position: absolute;
             top: 50%;
             left: 50%;

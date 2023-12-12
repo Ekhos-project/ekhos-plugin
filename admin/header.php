@@ -4,7 +4,7 @@
         <h1>ID SOUND</h1>
     </div>
     <nav class="idsheader_navigation">
-        <a href="#idslinked">Liées des sons</a>
+        <a href="#idslinked">Lier des sons</a>
         <a href="#idscharacters">Personnages</a>
         <a href="#idssound">Sons</a>
         <a href="#idssettings">Paramètres</a>

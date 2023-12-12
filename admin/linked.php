@@ -1,6 +1,6 @@
 <div id="idslinked">
     <div class="idslinked_action">
-        <button class="starticon">Liée un sons</button>
+        <button class="starticon">Lier un sons</button>
     </div>
     <div class="idslinked_items">
         <div class="idslinked_items_name">

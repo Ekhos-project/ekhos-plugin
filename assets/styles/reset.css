@@ -1,0 +1,51 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+#idsbody {
+  /* HTML5 display-role reset for older browsers */
+}
+#idsbody div, #idsbody span, #idsbody applet, #idsbody object, #idsbody iframe,
+#idsbody h1, #idsbody h2, #idsbody h3, #idsbody h4, #idsbody h5, #idsbody h6, #idsbody p, #idsbody blockquote, #idsbody pre,
+#idsbody a, #idsbody abbr, #idsbody acronym, #idsbody address, #idsbody big, #idsbody cite, #idsbody code,
+#idsbody del, #idsbody dfn, #idsbody em, #idsbody img, #idsbody ins, #idsbody kbd, #idsbody q, #idsbody s, #idsbody samp,
+#idsbody small, #idsbody strike, #idsbody strong, #idsbody sub, #idsbody sup, #idsbody tt, #idsbody var,
+#idsbody b, #idsbody u, #idsbody i, #idsbody center,
+#idsbody dl, #idsbody dt, #idsbody dd, #idsbody ol, #idsbody ul, #idsbody li,
+#idsbody fieldset, #idsbody form, #idsbody label, #idsbody legend,
+#idsbody table, #idsbody caption, #idsbody tbody, #idsbody tfoot, #idsbody thead, #idsbody tr, #idsbody th, #idsbody td,
+#idsbody article, #idsbody aside, #idsbody canvas, #idsbody details, #idsbody embed,
+#idsbody figure, #idsbody figcaption, #idsbody footer, #idsbody header, #idsbody hgroup,
+#idsbody menu, #idsbody nav, #idsbody output, #idsbody ruby, #idsbody section, #idsbody summary,
+#idsbody time, #idsbody mark, #idsbody audio, #idsbody video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+#idsbody article, #idsbody aside, #idsbody details, #idsbody figcaption, #idsbody figure,
+#idsbody footer, #idsbody header, #idsbody hgroup, #idsbody menu, #idsbody nav, #idsbody section {
+  display: block;
+}
+#idsbody body {
+  line-height: 1;
+}
+#idsbody ol, #idsbody ul {
+  list-style: none;
+}
+#idsbody blockquote, #idsbody q {
+  quotes: none;
+}
+#idsbody blockquote:before, #idsbody blockquote:after,
+#idsbody q:before, #idsbody q:after {
+  content: "";
+  content: none;
+}
+#idsbody table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*# sourceMappingURL=reset.css.map */

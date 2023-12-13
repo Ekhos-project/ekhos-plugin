@@ -11,7 +11,7 @@
                 <span>Nom</span>
             </div>
             <div class="idscharacter_items_name_sound">
-                <span>Sons principale</span>
+                <span>Son principal</span>
             </div>
             <div class="idscharacter_items_name_actions">
                 <span>Actions</span>

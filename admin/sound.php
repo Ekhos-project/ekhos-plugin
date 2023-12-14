@@ -1,6 +1,6 @@
 <div id="idssound">
     <div class="idssound_action">
-        <button class="starticon">Ajouter un sons</button>
+        <button class="starticon" id="idssound_button">Ajouter un sons</button>
     </div>
     <div class="idssound_items">
         <div class="idssound_items_name">

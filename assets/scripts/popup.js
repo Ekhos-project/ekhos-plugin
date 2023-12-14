@@ -16,7 +16,7 @@ class Popup {
         let html = `<div class="popup-action_input">`;
         const id = `${this.name}-input-${name}`;
         html += `<label for="${id}">${label} :</label>`;
-        html += `<input id="${id}" name="${name}" placeholder="${placeholder}" value="${value}">`;
+        html += `<input type="text" id="${id}" name="${name}" placeholder="${placeholder}" value="${value}">`;
         html += `</div>`;
         this.fieldsSelector.push(id);
         return html;
@@ -31,6 +31,16 @@ class Popup {
             html += `<option value="${e.value}"${value === e.value ? "selected" : ""}>${e.text}</option>`;
         });
         html += `</select>`;
+        html += `</div>`;
+        this.fieldsSelector.push(id);
+        return html;
+    }
+
+    fieldFileHtml(name="", label="", placeholder="", value="") {
+        let html = `<div class="popup-action_input">`;
+        const id = `${this.name}-input-${name}`;
+        html += `<label for="${id}">${label} :</label>`;
+        html += `<input type="file" id="${id}" name="${name}" placeholder="${placeholder}">`;
         html += `</div>`;
         this.fieldsSelector.push(id);
         return html;
@@ -56,6 +66,10 @@ class Popup {
 
             if(fieldType === "text") {
                 popupHtml += this.fieldTextHtml(fieldName, fieldLabel, fieldPlaceholder, fieldValue);
+            }
+
+            if(fieldType === "file") {
+                popupHtml += this.fieldFileHtml(fieldName, fieldLabel, fieldPlaceholder, fieldValue);
             }
 
             if(fieldType === "select") {
@@ -92,15 +106,19 @@ class Popup {
     }
 
     async post() {
-        const fields =  [];
+        const formData = new FormData();
         this.fieldsSelector.forEach((selector) => {
            const field = this.selector.querySelector(`#${selector}`);
-           fields.push({
-               name: field.name,
-               value: field.value
-           })
+           if(field.type === "file") {
+               if(!field.files.length) {
+                   return;
+               }
+               const file = field.files[0];
+               formData.append(`file__${field.name}`, file);
+           } else {
+               formData.append(field.name, field.value);
+           }
         });
-        console.log(fields);
 
         const request = await fetch(this.submitAction, {
             method: 'POST',
@@ -108,7 +126,7 @@ class Popup {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({action: this.submitAction, fields: fields})
+            body: formData
         });
         const response = await request.json();
         this.active = false;
@@ -127,6 +145,30 @@ export default function () {
             ["select", "page", "Page", "", "Value 1", [{text: "Name 0", value:"Value 0"}, {text: "Name 1", value:"Value 1"}]],
             ["text", "section", "Section", "#header", ""],
             ["select", "sound", "Son personnage", "", "Value 1", [{text: "Name 0", value:"Value 0"}, {text: "Name 1", value:"Value 1"}]]
+        ]
+    );
+
+    const characterButton = document.querySelector("button#idscharacter_button");
+    const characterPopup = new Popup(
+        characterButton,
+        "character",
+        "Ajouter un personnage",
+        "/update/id",
+        [
+            ["text", "name", "Nom du personnage", "Nom", ""],
+            ["select", "sound", "Son principal", "", "", [{text: "Name 0", value:"Value 0"}, {text: "Name 1", value:"Value 1"}]]
+        ]
+    );
+
+    const soundButton = document.querySelector("button#idssound_button");
+    const soundPopup = new Popup(
+        soundButton,
+        "character",
+        "Ajouter un personnage",
+        "/update/id",
+        [
+            ["text", "name", "Nom du son", "Cri", ""],
+            ["file", "audio", "Fichier audio", "", ""]
         ]
     );
 }

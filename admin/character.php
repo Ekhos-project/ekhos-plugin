@@ -1,6 +1,6 @@
 <div id="idscharacter">
     <div class="idscharacter_action">
-        <button class="starticon">Ajouter un personnage</button>
+        <button class="starticon" id="idscharacter_button">Ajouter un personnage</button>
     </div>
     <div class="idscharacter_items">
         <div class="idscharacter_items_name">

@@ -1,4 +1,4 @@
-class Popup {
+export class Popup {
     constructor(trigger, name, submitLabel, submitAction, fields) {
         this.trigger = trigger;
         this.selector = undefined;
@@ -12,7 +12,7 @@ class Popup {
         this.generate();
     }
 
-    fieldTextHtml(name="", label="", placeholder="", value="") {
+    fieldTextHtml(name = "", label = "", placeholder = "", value = "") {
         let html = `<div class="popup-action_input">`;
         const id = `${this.name}-input-${name}`;
         html += `<label for="${id}">${label} :</label>`;
@@ -22,7 +22,7 @@ class Popup {
         return html;
     }
 
-    fieldSelectHtml(name="", label="", placeholder="", value="", populate=[]) {
+    fieldSelectHtml(name = "", label = "", placeholder = "", value = "", populate = []) {
         let html = `<div class="popup-action_input">`;
         const id = `${this.name}-input-${name}`;
         html += `<label for="${id}">${label} :</label>`;
@@ -36,7 +36,7 @@ class Popup {
         return html;
     }
 
-    fieldFileHtml(name="", label="", placeholder="", value="") {
+    fieldFileHtml(name = "", label = "", placeholder = "", value = "") {
         let html = `<div class="popup-action_input">`;
         const id = `${this.name}-input-${name}`;
         html += `<label for="${id}">${label} :</label>`;
@@ -48,7 +48,7 @@ class Popup {
 
     generate() {
         const current = this.body.querySelector(`#popup-${this.name}`);
-        if(current) current.remove();
+        if (current) current.remove();
 
         const popup = document.createElement('div');
         let popupHtml = "";
@@ -64,15 +64,15 @@ class Popup {
             const fieldValue = field[4];
             const fieldPopulate = field[5];
 
-            if(fieldType === "text") {
+            if (fieldType === "text") {
                 popupHtml += this.fieldTextHtml(fieldName, fieldLabel, fieldPlaceholder, fieldValue);
             }
 
-            if(fieldType === "file") {
+            if (fieldType === "file") {
                 popupHtml += this.fieldFileHtml(fieldName, fieldLabel, fieldPlaceholder, fieldValue);
             }
 
-            if(fieldType === "select") {
+            if (fieldType === "select") {
                 popupHtml += this.fieldSelectHtml(fieldName, fieldLabel, fieldPlaceholder, fieldValue, fieldPopulate);
             }
         });
@@ -87,7 +87,7 @@ class Popup {
 
     events() {
         this.trigger.addEventListener("click", () => {
-            if(!this.active) {
+            if (!this.active) {
                 this.selector.classList.add("active");
             } else {
                 this.selector.classList.remove("active");
@@ -108,29 +108,44 @@ class Popup {
     async post() {
         const formData = new FormData();
         this.fieldsSelector.forEach((selector) => {
-           const field = this.selector.querySelector(`#${selector}`);
-           if(field.type === "file") {
-               if(!field.files.length) {
-                   return;
-               }
-               const file = field.files[0];
-               formData.append(`file__${field.name}`, file);
-           } else {
-               formData.append(field.name, field.value);
-           }
+            const field = this.selector.querySelector(`#${selector}`);
+            if (field.type === "file") {
+                if (!field.files.length) {
+                    return;
+                }
+                const file = field.files[0];
+                formData.append(`file__${field.name}`, file);
+            } else {
+                formData.append(field.name, field.value);
+            }
         });
 
-        const request = await fetch(this.submitAction, {
+        const request = await fetch(`/wp-json/ekhos/${this.submitAction}`, {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
+            credentials: 'same-origin',
             body: formData
         });
-        const response = await request.json();
-        this.active = false;
-        this.selector.classList.remove("active");
+        try {
+            const response = await request.json();
+            if (response.status !== "success") {
+                alert("Une erreur est survenue avec le traitement");
+                return;
+            }
+            this.active = false;
+            this.selector.classList.remove("active");
+            this.clearFields();
+            return;
+        } catch (error) {
+        }
+
+        alert("Une erreur est survenue avec le traitement");
+    }
+
+    clearFields() {
+        this.fieldsSelector.forEach((selector) => {
+            const field = this.selector.querySelector(`#${selector}`);
+            field.value = "";
+        });
     }
 }
 
@@ -140,11 +155,17 @@ export default function () {
         linkedButton,
         "linked",
         "Lier un son",
-        "/update/id",
+        "get",
         [
-            ["select", "page", "Page", "", "Value 1", [{text: "Name 0", value:"Value 0"}, {text: "Name 1", value:"Value 1"}]],
+            ["select", "page", "Page", "", "Value 1", [{text: "Name 0", value: "Value 0"}, {
+                text: "Name 1",
+                value: "Value 1"
+            }]],
             ["text", "section", "Section", "#header", ""],
-            ["select", "sound", "Son personnage", "", "Value 1", [{text: "Name 0", value:"Value 0"}, {text: "Name 1", value:"Value 1"}]]
+            ["select", "sound", "Son personnage", "", "Value 1", [{text: "Name 0", value: "Value 0"}, {
+                text: "Name 1",
+                value: "Value 1"
+            }]]
         ]
     );
 
@@ -153,10 +174,23 @@ export default function () {
         characterButton,
         "character",
         "Ajouter un personnage",
-        "/update/id",
+        "character/add",
         [
             ["text", "name", "Nom du personnage", "Nom", ""],
-            ["select", "sound", "Son principal", "", "", [{text: "Name 0", value:"Value 0"}, {text: "Name 1", value:"Value 1"}]]
+            ["select", "sound", "Son principal", "", "null", [
+                {
+                    text: "Aucun son",
+                    value: "null"
+                },
+                {
+                    text: "Name 0",
+                    value: "Value 0"
+                },
+                {
+                    text: "Name 1",
+                    value: "Value 1"
+                }
+            ]]
         ]
     );
 

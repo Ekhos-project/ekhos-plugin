@@ -1,5 +1,7 @@
+import {Table} from "./table.js";
+
 export class Popup {
-    constructor(trigger, name, submitLabel, submitAction, fields) {
+    constructor(trigger, name, submitLabel, submitAction, fields, table=undefined) {
         this.trigger = trigger;
         this.selector = undefined;
         this.name = name;
@@ -7,6 +9,7 @@ export class Popup {
         this.submitAction = submitAction;
         this.fields = fields;
         this.fieldsSelector = [];
+        this.table = table;
         this.body = document.querySelector("#idsbody");
         this.active = false;
         this.generate();
@@ -133,12 +136,19 @@ export class Popup {
             }
             this.active = false;
             this.selector.classList.remove("active");
+            this.populateTable();
             this.clearFields();
             return;
         } catch (error) {
         }
 
         alert("Une erreur est survenue avec le traitement");
+    }
+
+    async populateTable() {
+        if(!this.table) return;
+        this.table.clear();
+        await this.table.populate();
     }
 
     clearFields() {
@@ -172,6 +182,9 @@ export default function () {
         ]
     );
 
+    const characterSelector = document.querySelector("#idscharacter .idscharacter_items");
+    const characterTable = new Table(characterSelector, "idscharacter", "character");
+    characterTable.populate();
     const characterButton = document.querySelector("button#idscharacter_button");
     const characterPopup = new Popup(
         characterButton,
@@ -194,7 +207,8 @@ export default function () {
                     value: "Value 1"
                 }
             ]]
-        ]
+        ],
+        characterTable
     );
 
     const soundButton = document.querySelector("button#idssound_button");

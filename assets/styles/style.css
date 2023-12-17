@@ -713,10 +713,10 @@
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
-#idscharacter .idscharacter_item_sound button.idscharacter_item_delete {
+#idscharacter .idscharacter_item_sound button.idscharacter_item_sound_delete {
   margin-left: 10px;
 }
-#idscharacter .idscharacter_item_sound button.idscharacter_item_delete::before {
+#idscharacter .idscharacter_item_sound button.idscharacter_item_sound_delete::before {
   content: "\e872";
   font-family: "Material Symbols Rounded";
   font-weight: normal;

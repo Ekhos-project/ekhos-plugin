@@ -31,11 +31,34 @@ function ekhos_character_add($request)
 
 function ekhos_character_update($request)
 {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ekhos_ids_characters';
+    $id = $request->get_param('id');
     $body_params = $request->get_body_params();
+    $name = isset($body_params['name']) ? $body_params['name'] : '';
+    $sound = isset($body_params['sound']) ? $body_params['sound'] : '';
 
-//    return new WP_Error('no_post', 'Article non trouvé', array('status' => 404));
+    if ($sound == 'null') {
+        $sound = null;
+    }
+
+    $wpdb->update(
+        $table_name,
+        array(
+            'name' => $name,
+            'sound' => $sound
+        ),
+        array('id' => $id),
+        array(
+            '%s',
+            '%s'
+        ),
+        array('%d')
+    );
+
     return new WP_REST_Response(array(
         'status' => 'success',
+        'id' => $id
     ), 200);
 }
 
@@ -67,7 +90,7 @@ function ekhos_character_list($request)
             $sound = "<audio controls src=''></audio><button class='starticon idscharacter_item_sound_delete'></button>";
         }
         $html .= "
-        <div class='idscharacter_item' data-id='".$item->id."' data-name='".$item->name."' data-sound='".$item->sound."'>
+        <div class='idscharacter_item' data-name='idscharacter_item' data-enpoint='character' data-id='".$item->id."' data-name='".$item->name."' data-sound='".$item->sound."'>
             <div class='idscharacter_item_id'>
                 <span>".$item->id."</span>
             </div>

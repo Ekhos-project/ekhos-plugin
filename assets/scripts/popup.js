@@ -30,7 +30,11 @@ export class Popup {
         const id = `${this.name}-input-${name}`;
         html += `<label for="${id}">${label} :</label>`;
         html += `<select id="${id}" name="${name}" value="${value}">`;
-        populate.forEach((e) => {
+        let p = populate;
+        if(typeof(populate) === "function") {
+            p = populate();
+        }
+        p.forEach((e) => {
             html += `<option value="${e.value}">${e.text}</option>`;
         });
         html += `</select>`;
@@ -162,6 +166,22 @@ export class Popup {
     }
 }
 
+export function populateCharacter () {
+    return [{
+        text: "Aucun son",
+        value: "null"
+    },
+        {
+            text: "Name 0",
+            value: "Value 0"
+        },
+        {
+            text: "Name 1",
+            value: "Value 1"
+        }
+    ]
+}
+
 export default function () {
     const linkedButton = document.querySelector("button#idslinked_button");
     const linkedPopup = new Popup(
@@ -193,20 +213,7 @@ export default function () {
         "character/add",
         [
             ["text", "name", "Nom du personnage", "Nom", ""],
-            ["select", "sound", "Son principal", "", "null", [
-                {
-                    text: "Aucun son",
-                    value: "null"
-                },
-                {
-                    text: "Name 0",
-                    value: "Value 0"
-                },
-                {
-                    text: "Name 1",
-                    value: "Value 1"
-                }
-            ]]
+            ["select", "sound", "Son principal", "", "null", populateCharacter]
         ],
         characterTable
     );

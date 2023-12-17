@@ -9,7 +9,7 @@ function ekhos_register_endpoints() {
         'methods' => 'POST',
         'callback' => 'ekhos_character_add'
     ));
-    register_rest_route('ekhos', '/character/update', array(
+    register_rest_route('ekhos', '/character/update/(?P<id>\d+)', array(
         'methods' => 'POST',
         'callback' => 'ekhos_character_update'
     ));

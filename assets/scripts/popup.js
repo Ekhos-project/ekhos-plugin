@@ -26,9 +26,9 @@ export class Popup {
         let html = `<div class="popup-action_input">`;
         const id = `${this.name}-input-${name}`;
         html += `<label for="${id}">${label} :</label>`;
-        html += `<select id="${id}" name="${name}">`;
+        html += `<select id="${id}" name="${name}" value="${value}">`;
         populate.forEach((e) => {
-            html += `<option value="${e.value}"${value === e.value ? "selected" : ""}>${e.text}</option>`;
+            html += `<option value="${e.value}">${e.text}</option>`;
         });
         html += `</select>`;
         html += `</div>`;
@@ -144,6 +144,9 @@ export class Popup {
     clearFields() {
         this.fieldsSelector.forEach((selector) => {
             const field = this.selector.querySelector(`#${selector}`);
+            if(field.tagName === "SELECT") {
+                return;
+            }
             field.value = "";
         });
     }

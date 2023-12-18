@@ -144,6 +144,7 @@ export class Popup {
             this.clearFields();
             return;
         } catch (error) {
+            console.log(error);
         }
 
         alert("Une erreur est survenue avec le traitement");
@@ -182,7 +183,20 @@ export function populateCharacter () {
     ]
 }
 
-export default function () {
+
+export async function populateSound () {
+    const request = await fetch(`/wp-json/ekhos/character/sound-list`, {
+        method: 'POST',
+        credentials: 'same-origin'
+    });
+    const response = await request.json();
+    return response.items.map((item) => {
+        return {text:item.name, value:item.id}
+    });
+}
+
+
+export default async function () {
     const linkedButton = document.querySelector("button#idslinked_button");
     const linkedPopup = new Popup(
         linkedButton,
@@ -218,15 +232,21 @@ export default function () {
         characterTable
     );
 
+    const soundSelector = document.querySelector("#idssound .idssound_items");
+    const soundTable = new Table(soundSelector, "idssound", "sound");
+    soundTable.populate();
     const soundButton = document.querySelector("button#idssound_button");
+    const characterSound = await populateSound();
     const soundPopup = new Popup(
         soundButton,
-        "character",
-        "Ajouter un personnage",
-        "/update/id",
+        "sound",
+        "Ajouter un son",
+        "sound/add",
         [
+            ["select", "character", "Personnage", "", "", characterSound],
             ["text", "name", "Nom du son", "Cri", ""],
             ["file", "audio", "Fichier audio", "", ""]
-        ]
+        ],
+        soundTable
     );
 }

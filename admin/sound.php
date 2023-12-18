@@ -10,6 +10,9 @@
             <div class="idssound_items_name_character">
                 <span>Personnage</span>
             </div>
+            <div class="idssound_items_name_name">
+                <span>Nom</span>
+            </div>
             <div class="idssound_items_name_audio">
                 <span>Audio</span>
             </div>
@@ -23,6 +26,9 @@
             </div>
             <div class="idssound_item_character">
                 <span>Zidane</span>
+            </div>
+            <div class="idssound_item_name">
+                <span>Nom du son</span>
             </div>
             <div class="idssound_item_audio">
                 <audio controls src=""></audio>

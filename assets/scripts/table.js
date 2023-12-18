@@ -1,4 +1,4 @@
-import {populateCharacter, Popup} from "./popup.js";
+import {populateCharacter, Popup, populateSound} from "./popup.js";
 
 export class Table {
     constructor(selector, name, endpoint) {
@@ -6,6 +6,7 @@ export class Table {
         this.name = name;
         this.endpoint = endpoint;
         this.clear();
+        this.events();
     }
 
     async populate() {
@@ -14,6 +15,7 @@ export class Table {
             credentials: 'same-origin'
         });
         try {
+            this.clear();
             const response = await request.json();
             if (response.status !== "success") {
                 return;
@@ -27,6 +29,9 @@ export class Table {
         }
     }
 
+    events() {
+    }
+
     getItems() {
         return this.selector.querySelectorAll(`.${this.name}_item`);
     }
@@ -38,7 +43,7 @@ export class Table {
     }
 
     updateItemsEvents() {
-        this.getItems().forEach((item) => {
+        this.getItems().forEach(async (item) => {
             const id = item.getAttribute("data-id");
             const name = item.getAttribute("data-name");
             const trigger = item.querySelector(`.${name}_edit`);
@@ -52,6 +57,22 @@ export class Table {
                     [
                         ["text", "name", "Nom du perssonage", "Nom", item.querySelector(".idscharacter_item_name span").innerText],
                         ["select", "sound", "Son principal", "", "null", populateCharacter]
+                    ],
+                    this
+                );
+            }
+
+            if(name === "idssound_item") {
+                const characterSound = await populateSound();
+                const itemPopup = new Popup(
+                    trigger,
+                    `${name}_${id}`,
+                    `Modifier le son N°${id}`,
+                    `sound/update/${id}`,
+                    [
+                        ["select", "character", "Personnage", "", item.getAttribute("data-character"), characterSound],
+                        ["text", "name", "Nom du son", "Cri", item.getAttribute("data-value")],
+                        ["file", "audio", "Fichier audio", "", ""]
                     ],
                     this
                 );

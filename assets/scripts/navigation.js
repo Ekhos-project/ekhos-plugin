@@ -7,6 +7,14 @@ class Navigation {
         this.events();
     }
 
+    getLocalStorage() {
+        return localStorage.getItem("idsnavigation");
+    }
+
+    setLocalStorage(link) {
+        localStorage.setItem("idsnavigation", this.active);
+    }
+
     getItems() {
         return this.selector.querySelectorAll(":scope > a");
     }
@@ -16,7 +24,10 @@ class Navigation {
     }
 
     setDefaultActive() {
-        const active = this.getItems()[0].getAttribute("data-page");
+        let active = this.getItems()[0].getAttribute("data-page");
+        if(this.getLocalStorage()) {
+            active = this.getLocalStorage();
+        }
         this.active = active;
         return active;
     }
@@ -48,13 +59,14 @@ class Navigation {
         this.getItems().forEach((element) => {
             element.addEventListener("click", () => {
                 this.active = element.getAttribute("data-page");
-                this.setActive();
+                this.setLocalStorage();
+                location.reload();
             });
         });
     }
 }
 
-export default function () {
+export default async function () {
     const selector = document.querySelector("nav.idsheader_navigation");
     const navigation = new Navigation(selector);
 }

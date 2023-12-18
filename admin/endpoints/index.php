@@ -1,6 +1,7 @@
 <?php
 
 include_once "character.php";
+include_once "sound.php";
 include_once "linked.php";
 
 function ekhos_register_endpoints() {
@@ -17,15 +18,31 @@ function ekhos_register_endpoints() {
         'methods' => 'POST',
         'callback' => 'ekhos_character_delete'
     ));
+    register_rest_route('ekhos', '/character/sound-list', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_character_sound_list'
+    ));
     register_rest_route('ekhos', '/character/list', array(
         'methods' => 'POST',
         'callback' => 'ekhos_character_list'
     ));
 
     /* Sound */
-    register_rest_route('ekhos', '/get', array(
+    register_rest_route('ekhos', '/sound/add', array(
         'methods' => 'POST',
-        'callback' => 'ekhos_get_post'
+        'callback' => 'ekhos_sound_add'
+    ));
+    register_rest_route('ekhos', '/sound/update/(?P<id>\d+)', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_sound_update'
+    ));
+    register_rest_route('ekhos', '/sound/delete', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_sound_delete'
+    ));
+    register_rest_route('ekhos', '/sound/list', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_sound_list'
     ));
 
     /* Linked */

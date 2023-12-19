@@ -40,6 +40,10 @@ function ekhos_register_endpoints() {
         'methods' => 'POST',
         'callback' => 'ekhos_sound_delete'
     ));
+    register_rest_route('ekhos', '/sound/character-list', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_sound_character_list'
+    ));
     register_rest_route('ekhos', '/sound/list', array(
         'methods' => 'POST',
         'callback' => 'ekhos_sound_list'

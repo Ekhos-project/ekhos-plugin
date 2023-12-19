@@ -167,32 +167,31 @@ export class Popup {
     }
 }
 
-export function populateCharacter () {
-    return [{
-        text: "Aucun son",
-        value: "null"
-    },
-        {
-            text: "Name 0",
-            value: "Value 0"
-        },
-        {
-            text: "Name 1",
-            value: "Value 1"
-        }
-    ]
+export async function populateSoundCharacter () {
+    const request = await fetch(`/wp-json/ekhos/sound/character-list`, {
+        method: 'POST',
+        credentials: 'same-origin'
+    });
+    const response = await request.json();
+    let items = response.items.map((item) => {
+        return {text:item.name, value:item.id}
+    });
+    items.unshift({text:"Aucun son", value:"null"})
+    return items;
 }
 
 
-export async function populateSound () {
+export async function populateCharacterSound() {
     const request = await fetch(`/wp-json/ekhos/character/sound-list`, {
         method: 'POST',
         credentials: 'same-origin'
     });
     const response = await request.json();
-    return response.items.map((item) => {
+    const items = response.items.map((item) => {
         return {text:item.name, value:item.id}
     });
+    items.unshift({text: "Aucun personnage", value:"null"})
+    return items;
 }
 
 
@@ -220,6 +219,7 @@ export default async function () {
     const characterTable = new Table(characterSelector, "idscharacter", "character");
     characterTable.populate();
     const characterButton = document.querySelector("button#idscharacter_button");
+    const soundCharacter = await populateSoundCharacter();
     const characterPopup = new Popup(
         characterButton,
         "character",
@@ -227,7 +227,7 @@ export default async function () {
         "character/add",
         [
             ["text", "name", "Nom du personnage", "Nom", ""],
-            ["select", "sound", "Son principal", "", "null", populateCharacter]
+            ["select", "sound", "Son principal", "", "null", soundCharacter]
         ],
         characterTable
     );
@@ -236,7 +236,7 @@ export default async function () {
     const soundTable = new Table(soundSelector, "idssound", "sound");
     soundTable.populate();
     const soundButton = document.querySelector("button#idssound_button");
-    const characterSound = await populateSound();
+    const characterSound = await populateCharacterSound();
     const soundPopup = new Popup(
         soundButton,
         "sound",

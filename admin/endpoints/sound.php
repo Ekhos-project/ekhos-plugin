@@ -48,8 +48,6 @@ function ekhos_sound_update($request) {
     require_once(ABSPATH . 'wp-admin/includes/file.php');
     global $wpdb;
     $table_name = $wpdb->prefix . 'ekhos_ids_sounds';
-
-    // Récupérer l'ID de l'élément à mettre à jour
     $id = $request->get_param('id');
 
     $body_params = $request->get_body_params();
@@ -62,12 +60,10 @@ function ekhos_sound_update($request) {
         $character = null;
     }
 
-    // Gérer le téléchargement du fichier
     if (!empty($files['file__audio'])) {
         $movefile = wp_handle_upload($files['file__audio'], $upload_overrides);
 
         if ($movefile && !isset($movefile['error'])) {
-            // Préparer les données à mettre à jour
             $data = array(
                 'name' => $name,
                 'character_id' => $character,
@@ -81,7 +77,6 @@ function ekhos_sound_update($request) {
             ), 200);
         }
     } else {
-        // Pas de fichier à télécharger, mettre à jour les autres informations seulement
         $data = array(
             'name' => $name,
             'character_id' => $character
@@ -89,7 +84,6 @@ function ekhos_sound_update($request) {
         $data_format = array('%s', '%d');
     }
 
-    // Effectuer la mise à jour
     $wpdb->update($table_name, $data, array('id' => $id), $data_format, array('%d'));
 
     return new WP_REST_Response(array(
@@ -120,6 +114,21 @@ function ekhos_sound_delete($request)
         'id'=>$id
     ), 200);
 }
+
+
+function ekhos_sound_character_list($request)
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ekhos_ids_sounds';
+    $body_params = $request->get_body_params();
+    $items = $wpdb->get_results("SELECT * FROM {$table_name}");
+
+    return new WP_REST_Response(array(
+        'status' => 'success',
+        'items' => $items
+    ), 200);
+}
+
 
 function ekhos_sound_list($request)
 {

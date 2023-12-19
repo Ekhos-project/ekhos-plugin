@@ -102,7 +102,10 @@ function ekhos_character_list($request)
     foreach ($items as $item) {
         $sound = "<button class='starticon idscharacter_item_sound_add'></button>";
         if(isset($item->sound_id)) {
-            $sound = "<audio controls src=''></audio><button class='starticon idscharacter_item_sound_delete'></button>";
+            $sound_table_name = $wpdb->prefix . 'ekhos_ids_sounds';
+            $sound_query = $wpdb->prepare("SELECT * FROM $sound_table_name WHERE id = %d", $item->sound_id);
+            $sound_row = $wpdb->get_row($sound_query);
+            $sound = "<audio controls src='".$sound_row->sound_url."'></audio><button class='starticon idscharacter_item_sound_delete'></button>";
         }
         $html .= "
         <div class='idscharacter_item' data-name='idscharacter_item' data-enpoint='character' data-id='".$item->id."' data-value='".$item->name."' data-sound='".$item->sound_id."'>

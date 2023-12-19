@@ -1,4 +1,4 @@
-import {populateCharacter, Popup, populateSound} from "./popup.js";
+import {Popup, populateSoundCharacter, populateCharacterSound} from "./popup.js";
 
 export class Table {
     constructor(selector, name, endpoint) {
@@ -49,6 +49,7 @@ export class Table {
             const trigger = item.querySelector(`.${name}_edit`);
 
             if(name === "idscharacter_item") {
+                const soundCharacter = await populateSoundCharacter();
                 const itemPopup = new Popup(
                     trigger,
                     `${name}_${id}`,
@@ -56,14 +57,24 @@ export class Table {
                     `character/update/${id}`,
                     [
                         ["text", "name", "Nom du perssonage", "Nom", item.querySelector(".idscharacter_item_name span").innerText],
-                        ["select", "sound", "Son principal", "", "null", populateCharacter]
+                        ["select", "sound", "Son principal", "", "null", soundCharacter]
                     ],
                     this
                 );
+                if(item.querySelector(".idscharacter_item_sound_add")){
+                    item.querySelector(".idscharacter_item_sound_add").addEventListener("click", ()=>{
+                        trigger.click();
+                    });
+                }
+                if(item.querySelector(".idscharacter_item_sound_delete")){
+                    item.querySelector(".idscharacter_item_sound_delete").addEventListener("click", ()=>{
+                        trigger.click();
+                    });
+                }
             }
 
             if(name === "idssound_item") {
-                const characterSound = await populateSound();
+                const characterSound = await populateCharacterSound();
                 const itemPopup = new Popup(
                     trigger,
                     `${name}_${id}`,

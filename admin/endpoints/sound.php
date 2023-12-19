@@ -142,7 +142,7 @@ function ekhos_sound_list($request)
         $character_table_name = $wpdb->prefix . 'ekhos_ids_characters';
         $character_query = $wpdb->prepare("SELECT * FROM $character_table_name WHERE id = %d", $item->character_id);
         $character_row = $wpdb->get_row($character_query);
-        $character_name = $character_row->name;
+        $character_name = isset($character_row->name) ? $character_row->name : '';
         $html .= "
         <div class='idssound_item' data-name='idssound_item' data-enpoint='sound' data-id='".$item->id."' data-value='".$item->name."' data-character='".$item->character_id."' data-sound='".$item->sound_url."'>
             <div class='idssound_item_id'>

@@ -50,6 +50,22 @@ function ekhos_register_endpoints() {
     ));
 
     /* Linked */
+    register_rest_route('ekhos', '/linked/add', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_linked_add'
+    ));
+    register_rest_route('ekhos', '/linked/list', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_linked_list'
+    ));
+    register_rest_route('ekhos', '/linked/sound-list', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_linked_sound_list'
+    ));
+    register_rest_route('ekhos', '/linked/page-list', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_linked_page_list'
+    ));
 
     /* Settings */
 }

@@ -20,23 +20,5 @@
                 <span>Actions</span>
             </div>
         </div>
-        <div class="idssound_item">
-            <div class="idssound_item_id">
-                <span>1</span>
-            </div>
-            <div class="idssound_item_character">
-                <span>Zidane</span>
-            </div>
-            <div class="idssound_item_name">
-                <span>Nom du son</span>
-            </div>
-            <div class="idssound_item_audio">
-                <audio controls src=""></audio>
-            </div>
-            <div class="idssound_item_actions">
-                <button class="starticon idssound_item_edit"></button>
-                <button class="starticon idssound_item_delete"></button>
-            </div>
-        </div>
     </div>
 </div>

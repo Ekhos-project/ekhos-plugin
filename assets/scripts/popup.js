@@ -195,24 +195,50 @@ export async function populateCharacterSound() {
 }
 
 
+export async function populateLinkedPage() {
+    const request = await fetch(`/wp-json/ekhos/linked/page-list`, {
+        method: 'POST',
+        credentials: 'same-origin'
+    });
+    const response = await request.json();
+    const items = response.items.map((item) => {
+        return {text:`${item.name}`, value:item.url}
+    });
+    return items;
+}
+
+
+export async function populateLinkedSound() {
+    const request = await fetch(`/wp-json/ekhos/linked/sound-list`, {
+        method: 'POST',
+        credentials: 'same-origin'
+    });
+    const response = await request.json();
+    const items = response.items.map((item) => {
+        return {text:`${item.name} (${item.character_name})`, value:item.id}
+    });
+    return items;
+}
+
+
 export default async function () {
+    const linkedSelector = document.querySelector("#idslinked .idslinked_items");
+    const linkedTable = new Table(linkedSelector, "idslinked", "linked");
+    linkedTable.populate();
+    const soundLinked = await populateLinkedSound();
+    const pageLinked = await populateLinkedPage();
     const linkedButton = document.querySelector("button#idslinked_button");
     const linkedPopup = new Popup(
         linkedButton,
         "linked",
         "Lier un son",
-        "get",
+        "linked/add",
         [
-            ["select", "page", "Page", "", "Value 1", [{text: "Name 0", value: "Value 0"}, {
-                text: "Name 1",
-                value: "Value 1"
-            }]],
-            ["text", "section", "Section", "#header", ""],
-            ["select", "sound", "Son personnage", "", "Value 1", [{text: "Name 0", value: "Value 0"}, {
-                text: "Name 1",
-                value: "Value 1"
-            }]]
-        ]
+            ["select", "page", "Page", "", "Value 1", pageLinked],
+            ["text", "selector", "Selecteur", "#header", ""],
+            ["select", "sound", "Son", "", "Value 1", soundLinked]
+        ],
+        linkedTable
     );
 
     const characterSelector = document.querySelector("#idscharacter .idscharacter_items");

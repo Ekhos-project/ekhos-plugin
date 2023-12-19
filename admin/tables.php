@@ -4,6 +4,7 @@ function ekhos_activate_tables() {
     require(ABSPATH . 'wp-admin/includes/upgrade.php');
     ekhos_characters_table();
     ekhos_sounds_table();
+    ekhos_linkeds_table();
 }
 
 function ekhos_characters_table()
@@ -33,6 +34,23 @@ function ekhos_sounds_table()
         character_id mediumint(9) DEFAULT NULL,
         name tinytext NOT NULL,
         sound_url tinytext DEFAULT NULL,
+        PRIMARY KEY  (id)
+    ) $charset_collate;";
+
+    dbDelta($sql);
+}
+
+function ekhos_linkeds_table()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ekhos_ids_linkeds';
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        sound_id mediumint(9) DEFAULT NULL,
+        page_url tinytext DEFAULT NULL,
+        selector tinytext DEFAULT NULL,
         PRIMARY KEY  (id)
     ) $charset_collate;";
 

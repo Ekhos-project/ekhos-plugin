@@ -1,4 +1,10 @@
-import {Popup, populateSoundCharacter, populateCharacterSound} from "./popup.js";
+import {
+    Popup,
+    populateSoundCharacter,
+    populateCharacterSound,
+    populateLinkedSound,
+    populateLinkedPage
+} from "./popup.js";
 
 export class Table {
     constructor(selector, name, endpoint) {
@@ -84,6 +90,23 @@ export class Table {
                         ["select", "character", "Personnage", "", item.getAttribute("data-character"), characterSound],
                         ["text", "name", "Nom du son", "Cri", item.getAttribute("data-value")],
                         ["file", "audio", "Fichier audio", "", ""]
+                    ],
+                    this
+                );
+            }
+
+            if(name === "idslinked_item") {
+                const soundLinked = await populateLinkedSound();
+                const pageLinked = await populateLinkedPage();
+                const itemPopup = new Popup(
+                    trigger,
+                    `${name}_${id}`,
+                    `Modifier la liaison N°${id}`,
+                    `linked/update/${id}`,
+                    [
+                        ["select", "page", "Page", "", item.getAttribute("data-page"), pageLinked],
+                        ["text", "selector", "Selecteur", "#header", item.getAttribute("data-selector")],
+                        ["select", "sound", "Son", "", item.getAttribute("data-sound"), soundLinked]
                     ],
                     this
                 );

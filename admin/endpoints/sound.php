@@ -130,6 +130,46 @@ function ekhos_sound_character_list($request)
 }
 
 
+function ekhos_linked_update($request) {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ekhos_ids_linkeds';
+    $id = $request->get_param('id');
+    $body_params = $request->get_body_params();
+    $page = isset($body_params['page']) ? $body_params['page'] : '';
+    $sound = isset($body_params['sound']) ? $body_params['sound'] : '';
+    $selector = isset($body_params['selector']) ? $body_params['selector'] : '';
+
+    if ($sound == 'null') {
+        $sound = null;
+    }
+    if ($page == 'null') {
+        $page = null;
+    }
+
+    $wpdb->update(
+        $table_name,
+        array(
+            'selector' => $selector,
+            'page_url' => $page,
+            'sound_id' => $sound
+        ),
+        array('id' => $id),
+        array(
+            '%s',
+            '%s',
+            '%s'
+        ),
+        array('%d')
+    );
+
+    return new WP_REST_Response(array(
+        'status' => 'success',
+        'id' => $id
+    ), 200);
+}
+
+
+
 function ekhos_sound_list($request)
 {
     global $wpdb;

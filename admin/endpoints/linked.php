@@ -36,6 +36,21 @@ function ekhos_linked_add($request)
 }
 
 
+function ekhos_linked_delete($request)
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'ekhos_ids_linkeds';
+    $body_params = $request->get_body_params();
+    $id = isset($body_params['id']) ? $body_params['id'] : '';
+    $wpdb->delete($table_name, array('id' => $id), array('%d'));
+
+    return new WP_REST_Response(array(
+        'status' => 'success',
+        'id'=>$id
+    ), 200);
+}
+
+
 function ekhos_linked_sound_list($request)
 {
     global $wpdb;

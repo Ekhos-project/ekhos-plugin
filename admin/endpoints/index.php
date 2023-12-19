@@ -54,6 +54,14 @@ function ekhos_register_endpoints() {
         'methods' => 'POST',
         'callback' => 'ekhos_linked_add'
     ));
+    register_rest_route('ekhos', '/linked/update/(?P<id>\d+)', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_linked_update'
+    ));
+    register_rest_route('ekhos', '/linked/delete', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_linked_delete'
+    ));
     register_rest_route('ekhos', '/linked/list', array(
         'methods' => 'POST',
         'callback' => 'ekhos_linked_list'

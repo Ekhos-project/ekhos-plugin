@@ -47,7 +47,7 @@ export class Popup {
         let html = `<div class="popup-action_input">`;
         const id = `${this.name}-input-${name}`;
         html += `<label for="${id}">${label} :</label>`;
-        html += `<input type="file" id="${id}" name="${name}" placeholder="${placeholder}">`;
+        html += `<input type="file" accept="audio/*" id="${id}" name="${name}" placeholder="${placeholder}">`;
         html += `</div>`;
         this.fieldsSelector.push(id);
         return html;

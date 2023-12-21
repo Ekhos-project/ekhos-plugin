@@ -3,6 +3,7 @@
 include_once "character.php";
 include_once "sound.php";
 include_once "linked.php";
+include_once "public.php";
 
 function ekhos_register_endpoints() {
     /* Character */
@@ -76,6 +77,12 @@ function ekhos_register_endpoints() {
     ));
 
     /* Settings */
+
+    /* Public */
+    register_rest_route('ekhos', '/audio/list', array(
+        'methods' => 'POST',
+        'callback' => 'ekhos_audio_list'
+    ));
 }
 
 add_action('rest_api_init', 'ekhos_register_endpoints');

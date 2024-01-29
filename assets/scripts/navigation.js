@@ -67,6 +67,6 @@ class Navigation {
 }
 
 export default async function () {
-    const selector = document.querySelector("nav.idsheader_navigation");
-    const navigation = new Navigation(selector);
+/*    const selector = document.querySelector("nav.idsheader_navigation");
+    const navigation = new Navigation(selector);*/
 }

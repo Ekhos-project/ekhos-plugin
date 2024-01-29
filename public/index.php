@@ -1,5 +1,14 @@
 <?php
 
+function daisyui_style() {
+    wp_enqueue_style('daisyui', 'https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css', array(), '4.6.0', 'all');
+}
+add_action('admin_enqueue_scripts', 'daisyui_style');
+function daisyui_script() {
+    wp_enqueue_script('daisyui', 'https://cdn.tailwindcss.com', array(), '1.0.0', true);
+}
+add_action('admin_enqueue_scripts', 'daisyui_script');
+
 function enqueue_mon_style() {
     wp_register_style('ekhos-style', plugins_url('/styles/style.css', __FILE__), array(), '1.0.0', 'all');
     wp_enqueue_style('ekhos-style');

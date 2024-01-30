@@ -17,6 +17,11 @@
   background-color: $color1;
 }
 
+select.max-w-full-select {
+  width: 100%;
+  max-width: 100%;
+}
+
 #idsbody {
   position: relative;
   display: flex;

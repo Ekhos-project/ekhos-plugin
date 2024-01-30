@@ -13,5 +13,6 @@ function ekhos_ids_settings_page()
         ?>
     </div>
     <script src="<?= plugin_dir_url(__DIR__) . 'assets/scripts/script.js' ?>" type="module"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
     <?php
 }

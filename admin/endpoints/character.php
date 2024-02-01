@@ -34,7 +34,7 @@ function ekhos_character_update($request)
     global $wpdb;
     $table_name = $wpdb->prefix . 'ekhos_ids_characters';
     $id = $request->get_param('id');
-    $body_params = $request->get_body_params();
+    $body_params = $request->get_json_params();
     $name = isset($body_params['name']) ? $body_params['name'] : '';
     $sound = isset($body_params['sound']) ? $body_params['sound'] : '';
 
@@ -66,7 +66,7 @@ function ekhos_character_delete($request)
 {
     global $wpdb;
     $table_name = $wpdb->prefix . 'ekhos_ids_characters';
-    $body_params = $request->get_body_params();
+    $body_params = $request->get_json_params();
     $id = isset($body_params['id']) ? $body_params['id'] : '';
     $wpdb->delete($table_name, array('id' => $id), array('%d'));
 

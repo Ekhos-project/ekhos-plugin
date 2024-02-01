@@ -1,6 +1,6 @@
 <script>
     document.addEventListener('alpine:init', () => {
-        Alpine.store('base', {
+        Alpine.store('character_base', {
             url: '/wp-json/ekhos/character/',
             items: [],
             sounds: [],
@@ -21,7 +21,6 @@
                     name: name ? name : 'null',
                     sound: sound ? sound : 'null'
                 }
-                console.log(this.selected);
             },
 
             async request(endpoint, data) {
@@ -58,14 +57,14 @@
             sound: 'null',
 
             async request() {
-                const base = Alpine.store('base');
+                const character_base = Alpine.store('character_base');
                 this.isLoading = true;
-                const r = await base.request('add', {
+                const r = await character_base.request('add', {
                     name: this.name,
                     sound: this.sound
                 });
                 this.isLoading = false;
-                base.getItems();
+                character_base.getItems();
                 document.querySelector(`#idscharacter_modal_new`).close();
                 this.name = '';
                 this.sound = 'null';
@@ -77,14 +76,14 @@
             isLoading: false,
 
             async request() {
-                const base = Alpine.store('base');
+                const character_base = Alpine.store('character_base');
                 this.isLoading = true;
-                const r = await base.request(`update/${base.selected.id}`, {
-                    name: base.selected.name,
-                    sound: base.selected.sound
+                const r = await character_base.request(`update/${character_base.selected.id}`, {
+                    name: character_base.selected.name,
+                    sound: character_base.selected.sound
                 });
                 this.isLoading = false;
-                base.getItems();
+                character_base.getItems();
                 document.querySelector(`#idscharacter_modal_update`).close();
             },
         });
@@ -94,13 +93,13 @@
             isLoading: false,
 
             async request() {
-                const base = Alpine.store('base');
+                const character_base = Alpine.store('character_base');
                 this.isLoading = true;
-                const r = await base.request('delete', {
-                    id: base.selected.id ? base.selected.id : ''
+                const r = await character_base.request('delete', {
+                    id: character_base.selected.id ? character_base.selected.id : ''
                 });
                 this.isLoading = false;
-                base.getItems();
+                character_base.getItems();
                 document.querySelector(`#idscharacter_modal_delete`).close();
             },
         });
@@ -111,14 +110,14 @@
             sound: 'null',
 
             async request() {
-                const base = Alpine.store('base');
+                const character_base = Alpine.store('character_base');
                 this.isLoading = true;
-                const r = await base.request(`update/${base.selected.id}`, {
-                    name: base.selected.name,
+                const r = await character_base.request(`update/${character_base.selected.id}`, {
+                    name: character_base.selected.name,
                     sound: this.sound
                 });
                 this.isLoading = false;
-                base.getItems();
+                character_base.getItems();
                 document.querySelector(`#idscharacter_modal_add_audio`).close();
                 document.querySelector(`#idscharacter_modal_delete_audio`).close();
                 this.sound = 'null';
@@ -128,7 +127,9 @@
 </script>
 
 
-<div id="idscharacter">
+<div x-data id="idscharacter"
+     class="hidden"
+     :class="{'hidden': !$store.navigation.pageActive($el)}">
     <div class="idscharacter_modals">
         <!-- NEW MODAL -->
         <dialog id="idscharacter_modal_new" class="modal">
@@ -140,14 +141,15 @@
                     <h3 class="font-bold text-lg">Nouveau personnage</h3>
                     <label class="form-control w-full">
                         <span class="label-text pb-1">Nom du personnage :</span>
-                        <input x-data type="text" placeholder="Nom" class="input input-bordered input-sm w-full" x-model="$store.modal_new.name"/>
+                        <input x-data type="text" placeholder="Nom" class="input input-bordered input-sm w-full"
+                               x-model="$store.modal_new.name"/>
                     </label>
                     <label class="form-control w-full">
                         <span class="label-text pb-1">Son principal :</span>
                         <select x-data class="select select-bordered input-sm max-w-full-select"
                                 x-model="$store.modal_new.sound">
                             <option disabled value="null">Aucun</option>
-                            <template x-data x-for="(item, index) in $store.base.sounds" :key="index">
+                            <template x-data x-for="(item, index) in $store.character_base.sounds" :key="index">
                                 <option x-bind:value="item.id" x-text="item.name"></option>
                             </template>
                         </select>
@@ -175,14 +177,15 @@
                     <h3 class="font-bold text-lg">Modifier le personnage</h3>
                     <label class="form-control w-full">
                         <span class="label-text pb-1">Nom du personnage :</span>
-                        <input x-data type="text" placeholder="Nom" class="input input-bordered input-sm w-full" x-model="$store.base.selected.name"/>
+                        <input x-data type="text" placeholder="Nom" class="input input-bordered input-sm w-full"
+                               x-model="$store.character_base.selected.name"/>
                     </label>
                     <label class="form-control w-full">
                         <span class="label-text pb-1">Son principal :</span>
                         <select x-data class="select select-bordered input-sm max-w-full-select"
-                                x-model="$store.base.selected.sound">
+                                x-model="$store.character_base.selected.sound">
                             <option disabled value="null">Aucun</option>
-                            <template x-data x-for="(item, index) in $store.base.sounds" :key="index">
+                            <template x-data x-for="(item, index) in $store.character_base.sounds" :key="index">
                                 <option x-bind:value="item.id" x-text="item.name"></option>
                             </template>
                         </select>
@@ -193,7 +196,7 @@
                               :class="{ 'hidden': !$store.modal_update.isLoading }"></span>
                         <span x-data
                               :class="{ 'hidden': $store.modal_update.isLoading }">Modifier le personnage n°
-                            <b x-data x-text="$store.base.selected.id">null</b>
+                            <b x-data x-text="$store.character_base.selected.id">null</b>
                         </span>
                     </button>
                 </div>
@@ -212,15 +215,15 @@
                 <div class="container flex flex-col gap-3">
                     <h3 class="font-bold text-lg">Supprimer le personnage</h3>
                     <p>Êtes-vous sûr de vouloir supprimer le personange n°
-                        <b x-data x-text="$store.base.selected.id"></b>
-                        (<b x-data  x-text="$store.base.selected.name">null</b>)
+                        <b x-data x-text="$store.character_base.selected.id"></b>
+                        (<b x-data x-text="$store.character_base.selected.name">null</b>)
                     </p>
                     <button x-data class="btn btn-error mt-2 gap-0"
                             x-on:click="$store.modal_delete.request()">
                         <span x-data class="loading loading-spinner hidden"
                               :class="{ 'hidden': !$store.modal_delete.isLoading }"></span>
                         <span x-data :class="{ 'hidden': $store.modal_delete.isLoading }">Supprimer le personnage n°
-                            <b x-data  x-text="$store.base.selected.id">null</b>
+                            <b x-data x-text="$store.character_base.selected.id">null</b>
                         </span>
                     </button>
                 </div>
@@ -241,7 +244,7 @@
                     <select x-data x-model="$store.modal_update_sound.sound"
                             class="select select-bordered input-sm max-w-full-select">
                         <option disabled value="null">Aucun</option>
-                        <template x-data x-for="(item, index) in $store.base.sounds" :key="index">
+                        <template x-data x-for="(item, index) in $store.character_base.sounds" :key="index">
                             <option x-bind:value="item.id" x-text="item.name"></option>
                         </template>
                     </select>
@@ -293,8 +296,8 @@
     </div>
     <div class="overflow-x-auto">
         <div x-data class="skeleton h-12 w-full"
-             :class="{ 'hidden': !$store.base.isLoading }"></div>
-        <table x-data class="table border hidden" :class="{ 'hidden': $store.base.isLoading }">
+             :class="{ 'hidden': !$store.character_base.isLoading }"></div>
+        <table x-data class="table border hidden" :class="{ 'hidden': $store.character_base.isLoading }">
             <!-- head -->
             <thead class="bg-base-100 text-base-content text-lg">
             <tr>
@@ -306,7 +309,7 @@
             </thead>
             <tbody>
             <!-- row -->
-            <template x-data x-for="(item, index) in $store.base.items" :key="index">
+            <template x-data x-for="(item, index) in $store.character_base.items" :key="index">
                 <tr :class="index % 2 == 0 ? 'bg-gray-300' : 'bg-gray-200'">
                     <!-- ID -->
                     <th x-text="item.id"></th>
@@ -319,7 +322,7 @@
                         <button class="btn btn-circle btn-neutral"
                                 :class="{'hidden': !item.sound_url}"
                                 onclick="idscharacter_modal_delete_audio.showModal()"
-                                @click="$store.base.updateSelected(
+                                @click="$store.character_base.updateSelected(
                                 item.id, item.name, 'null')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash3" viewBox="0 0 16 16">
@@ -330,7 +333,7 @@
                         <button class="btn btn-circle btn-neutral"
                                 :class="{'hidden': item.sound_url}"
                                 onclick="idscharacter_modal_add_audio.showModal()"
-                                @click="$store.base.updateSelected(
+                                @click="$store.character_base.updateSelected(
                                 item.id, item.name, item.sound_id)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-plus" viewBox="0 0 16 16">
@@ -342,7 +345,7 @@
                     <td class="lex items-center gap-2">
                         <!-- ACTIONS - edit -->
                         <button class="btn btn-circle btn-neutral" onclick="idscharacter_modal_update.showModal()"
-                                @click="$store.base.updateSelected(
+                                @click="$store.character_base.updateSelected(
                                 item.id, item.name, item.sound_id)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-pencil" viewBox="0 0 16 16">
@@ -351,7 +354,7 @@
                         </button>
                         <!-- ACTIONS - delete -->
                         <button class="btn btn-circle btn-neutral" onclick="idscharacter_modal_delete.showModal()"
-                                @click="$store.base.updateSelected(
+                                @click="$store.character_base.updateSelected(
                                 item.id, item.name, item.sound_id)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash3" viewBox="0 0 16 16">

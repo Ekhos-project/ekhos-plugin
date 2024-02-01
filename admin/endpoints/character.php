@@ -102,6 +102,7 @@ function ekhos_character_list($request)
         SELECT c.*, s.sound_url
         FROM $table_name c
         LEFT JOIN $sound_table_name s ON c.sound_id = s.id
+        ORDER BY c.id ASC
     ");
 
     return new WP_REST_Response(array(

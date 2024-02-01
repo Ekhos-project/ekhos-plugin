@@ -7,10 +7,34 @@
     </div>
     <div class="flex-none">
         <ul class="menu menu-horizontal px-1 gap-2">
-            <li><a href="#idscharacter" class="px-2">Personnages</a></li>
-            <li><a href="#idssound" class="px-2">Sons</a></li>
-            <li><a href="#idslinked" class="px-2">Lier des sons</a></li>
-            <li><a href="#idssettings" class="px-2">Paramètres</a></li>
+            <li>
+                <a x-data href="#idscharacter" class="px-2"
+                   :class="{'active': $store.navigation.isActive($el)}"
+                   @click="$store.navigation.setActive($event)">
+                    Personnages
+                </a>
+            </li>
+            <li>
+                <a x-data href="#idssound" class="px-2"
+                   :class="{'active': $store.navigation.isActive($el)}"
+                   @click="$store.navigation.setActive($event)">
+                    Sons
+                </a>
+            </li>
+            <li>
+                <a x-data href="#idslinked" class="px-2"
+                   :class="{'active': $store.navigation.isActive($el)}"
+                   @click="$store.navigation.setActive($event)">
+                    Lier des sons
+                </a>
+            </li>
+            <li>
+                <a x-data href="#idssettings" class="px-2"
+                   :class="{'active': $store.navigation.isActive($el)}"
+                   @click="$store.navigation.setActive($event)">
+                    Paramètres
+                </a>
+            </li>
         </ul>
     </div>
 </div>

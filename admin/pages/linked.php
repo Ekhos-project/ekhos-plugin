@@ -1,4 +1,4 @@
-<div id="idslinked">
+<div id="idslinked" style="display: none">
     <div class="idslinked_action">
         <button class="starticon" id="idslinked_button">Lier un son</button>
     </div>

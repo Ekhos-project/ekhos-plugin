@@ -4,7 +4,7 @@ function ekhos_character_add($request)
 {
     global $wpdb;
     $table_name = $wpdb->prefix . 'ekhos_ids_characters';
-    $body_params = $request->get_body_params();
+    $body_params = $request->get_json_params();
     $name = isset($body_params['name']) ? $body_params['name'] : '';
     $sound = isset($body_params['sound']) ? $body_params['sound'] : '';
 
@@ -80,7 +80,7 @@ function ekhos_character_delete($request)
 function ekhos_character_sound_list($request)
 {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'ekhos_ids_characters';
+    $table_name = $wpdb->prefix . 'ekhos_ids_sounds';
     $body_params = $request->get_body_params();
     $items = $wpdb->get_results("SELECT * FROM {$table_name}");
 

@@ -222,6 +222,7 @@ export async function populateLinkedSound() {
 
 
 export default async function () {
+    return;
     const linkedSelector = document.querySelector("#idslinked .idslinked_items");
     const linkedTable = new Table(linkedSelector, "idslinked", "linked");
     linkedTable.populate();

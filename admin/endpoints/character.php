@@ -62,6 +62,7 @@ function ekhos_character_update($request)
     ), 200);
 }
 
+
 function ekhos_character_delete($request)
 {
     global $wpdb;

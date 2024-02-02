@@ -21,7 +21,6 @@
                     name: name ? name : 'null',
                     character: character ? character : 'null'
                 }
-                console.log(this.selected)
             },
 
             async request(endpoint, data) {
@@ -41,12 +40,11 @@
             async getItems() {
                 let r = await this.request('list', null);
                 this.items = r.items;
-                await this.getSounds();
+                await this.getCharacters();
                 this.isLoading = false;
-                console.log(this.items)
             },
 
-            async getSounds() {
+            async getCharacters() {
                 let r = await this.request('character-list', null);
                 this.characters = r.items;
             },

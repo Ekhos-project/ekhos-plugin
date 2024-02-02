@@ -31,6 +31,7 @@ function ekhos_ids_settings_page()
                 fetchData() {
                     Alpine.store('character_base').getItems();
                     Alpine.store('sound_base').getItems();
+                    Alpine.store('linked_base').getItems();
                 },
             });
         });

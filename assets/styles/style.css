@@ -30,4 +30,8 @@ select.max-w-full-select {
   padding: 0 !important;
 }
 
+#idssettings {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */

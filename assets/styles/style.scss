@@ -26,14 +26,11 @@ select.max-w-full-select {
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 1200px;
   padding: 0 30px;
   box-sizing: border-box;
 
   input[type=file] {
     padding: 0!important;
   }
-}
-
-#idssettings {
-  display: none;
 }

@@ -27,9 +27,11 @@ class AudioSound {
     async getAudios() {
         try {
             const request = await fetch(`/wp-json/ekhos/audio/list`, {
+                mode: 'no-cors',
                 method: 'POST',
                 header: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': '*/*'
                 },
                 body: JSON.stringify({
                     page: window.location.href

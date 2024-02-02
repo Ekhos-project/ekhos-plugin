@@ -3,15 +3,53 @@
 function ekhos_ids_settings_page()
 {
     ?>
-    <div id="idsbody">
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('navigation', {
+                active: '',
+
+                init() {
+                    const hash = window.location.hash;
+                    if(hash) {
+                        this.active = hash;
+                    }
+                },
+
+                isActive(e) {
+                    return this.active === e.getAttribute('href');
+                },
+
+                pageActive(e) {
+                    return this.active === "#" + e.getAttribute('id');
+                },
+
+                setActive(e) {
+                  this.active = e.target.getAttribute('href');
+                  this.fetchData();
+                },
+
+                fetchData() {
+                    Alpine.store('character_base').getItems();
+                    Alpine.store('sound_base').getItems();
+                    Alpine.store('linked_base').getItems();
+                },
+            });
+        });
+    </script>
+
+    <div id="idsbody"
+         x-data="{display: false}"
+         x-init="display=true"
+         style="display: none;"
+         x-bind:style="display ? 'display: flex;' : 'display: none;'"
+    >
         <?php
-        include_once "header.php";
-        include_once "linked.php";
-        include_once "character.php";
-        include_once "sound.php";
-        include_once "settings.php";
+        include_once "pages/header.php";
+        include_once "pages/linked.php";
+        include_once "pages/character.php";
+        include_once "pages/sound.php";
+        include_once "pages/settings.php";
         ?>
     </div>
-    <script src="<?= plugin_dir_url(__DIR__) . 'assets/scripts/script.js' ?>" type="module"></script>
     <?php
 }

@@ -12,7 +12,7 @@ class AudioSound {
     addPopup() {
         const popup = document.createElement("div");
         const html = "<span>Ce site utilise des sons pour augmenter l'expérience utilisateur.</span>" +
-            "<button>Accpeter</button>"
+            "<button>Accepter</button>"
         popup.innerHTML = html;
         popup.id = "audio_sound-popup";
         document.body.appendChild(popup);
@@ -111,8 +111,6 @@ class AudioSound {
                 });
             }*/
         }
-
-        console.log(closet)
     }
 }
 

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Ekhos Sound Design
 Description: Sound manager for your website
-Version: 1.0
+Version: 2.0
 Author: Ekhos
 */
 

@@ -81,7 +81,8 @@ function ekhos_register_endpoints() {
     /* Public */
     register_rest_route('ekhos', '/audio/list', array(
         'methods' => 'POST',
-        'callback' => 'ekhos_audio_list'
+        'callback' => 'ekhos_audio_list',
+        'permission_callback' => '__return_true'
     ));
 }
 

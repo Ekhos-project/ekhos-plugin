@@ -18,7 +18,7 @@ function ekhos_audio_list($request)
     $table_name = $wpdb->prefix . 'ekhos_ids_linkeds';
     $params = $request->get_body();
     $params = json_decode($params, true);
-    $page_url = isset($params['page']) ? $params['page'] : '';
+    $page_id = intval(isset($params['page']) ? $params['page'] : -1);
     $items = $wpdb->get_results("SELECT * FROM {$table_name}");
 
     foreach ($items as $item) {
@@ -29,8 +29,10 @@ function ekhos_audio_list($request)
         $sound_character_id = isset($sound_row->character_id) ? $sound_row->character_id : '';
         $sound_sound_url = isset($sound_row->sound_url) ? $sound_row->sound_url : '';
         $item_page = find_post_by_url_public($item->page_url);
-        $current_page = find_post_by_url_public($page_url);
+        $current_page = get_post($page_id);
         $item->sound = $sound_sound_url;
+        $item->page_id = $page_id;
+        $item->item_page_id = $item_page->ID;
         if ($item_page and $current_page and $item_page->ID == $current_page->ID) {
             $item->current = true;
         } else {

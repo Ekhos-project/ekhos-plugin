@@ -34,10 +34,9 @@ function ekhos_add_type_attribute($tag, $handle, $src) {
 
 add_filter('script_loader_tag', 'ekhos_add_type_attribute', 10, 3);
 
-function div_url_page() {
-    $page_url = get_permalink();
-    $page_url_escaped = esc_url($page_url);
-    echo '<div id="audio_sound-url" data-url="' . $page_url_escaped . '"></div>';
+function div_pageid() {
+    $page_id = get_the_ID();
+    echo '<div id="audio_sound-pageid" data-pageid="' . $page_id . '"></div>';
 }
 
-add_action('wp_footer', 'div_url_page');
+add_action('wp_footer', 'div_pageid');

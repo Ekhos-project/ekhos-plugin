@@ -9,7 +9,24 @@ class AudioSound {
         this.update();
     }
 
-    addPopup() {
+    async soundAllowed() {
+        const url = "/wp-content/plugins/ekhos/admin/../assets/images/default.mp3";
+        try {
+            let audio = new Audio(url);
+            await audio.play();
+            return true;
+        } catch (error) {
+            return false;
+        }
+        return false;
+    }
+
+    async addPopup() {
+        const allowed = await this.soundAllowed();
+        if(allowed) {
+            this.active = true;
+            return;
+        }
         const popup = document.createElement("div");
         const html = "<span>Ce site utilise des sons pour augmenter l'expérience utilisateur.</span>" +
             "<button>Accepter</button>"
@@ -25,8 +42,8 @@ class AudioSound {
     }
 
     async getAudios() {
-        let page = document.getElementById("audio_sound-url");
-        page = page.getAttribute("data-url")
+        let page = document.getElementById("audio_sound-pageid");
+        page = page.getAttribute("data-pageid")
         try {
             const request = await fetch(`/wp-json/ekhos/audio/list`, {
                 method: 'POST',

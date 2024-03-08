@@ -10,7 +10,8 @@ class AudioSound {
     }
 
     async soundAllowed() {
-        const url = "/wp-content/plugins/ekhos/admin/../assets/images/default.mp3";
+        const d = document.getElementById("audio_sound-default");
+        const url = d.getAttribute("data-url");
         try {
             let audio = new Audio(url);
             await audio.play();

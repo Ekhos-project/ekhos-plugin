@@ -25,6 +25,8 @@ class AudioSound {
     }
 
     async getAudios() {
+        let page = document.getElementById("audio_sound-url");
+        page = page.getAttribute("data-url")
         try {
             const request = await fetch(`/wp-json/ekhos/audio/list`, {
                 method: 'POST',
@@ -33,7 +35,7 @@ class AudioSound {
                     'Accept': '*/*'
                 },
                 body: JSON.stringify({
-                    page: window.location.href
+                    page: page
                 })
             });
             const response = await request.json();

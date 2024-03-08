@@ -13,12 +13,12 @@
   background-color: #1E1E1E;
 }
 
-select.max-w-full-select {
+.tools_page_ekhos-ids select.max-w-full-select {
   width: 100%;
   max-width: 100%;
 }
 
-#idsbody {
+.tools_page_ekhos-ids #idsbody {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@ select.max-w-full-select {
   padding: 0 30px;
   box-sizing: border-box;
 }
-#idsbody input[type=file] {
+.tools_page_ekhos-ids #idsbody input[type=file] {
   padding: 0 !important;
 }
 

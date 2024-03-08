@@ -173,7 +173,7 @@
                             x-on:click="$store.sound_modal_new.request($el)">
                         <span x-data class="loading loading-spinner hidden"
                               :class="{ 'hidden': !$store.sound_modal_new.isLoading }"></span>
-                        <span x-data :class="{ 'hidden': $store.sound_modal_new.isLoading }">Ajouter un personnage</span>
+                        <span x-data :class="{ 'hidden': $store.sound_modal_new.isLoading }">Ajouter un son</span>
                     </button>
                 </div>
             </div>

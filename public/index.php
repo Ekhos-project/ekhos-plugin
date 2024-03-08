@@ -37,6 +37,7 @@ add_filter('script_loader_tag', 'ekhos_add_type_attribute', 10, 3);
 function div_pageid() {
     $page_id = get_the_ID();
     echo '<div id="audio_sound-pageid" data-pageid="' . $page_id . '"></div>';
+    echo '<div id="audio_sound-default" data-url="' . plugin_dir_url(__DIR__) . '/assets/images/default.mp3"></div>';
 }
 
 add_action('wp_footer', 'div_pageid');

@@ -42,7 +42,7 @@ function ekhos_add_type_attribute($tag, $handle, $src) {
     }
     return $tag;
 }*/
-add_filter('script_loader_tag', 'ekhos_add_type_attribute', 10, 3);
+/*add_filter('script_loader_tag', 'ekhos_add_type_attribute', 10, 3);*/
 function append_public() {
     include_once('public.php');
 }

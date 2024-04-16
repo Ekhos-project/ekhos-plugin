@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Ekhos Sound Design
-Description: Sound manager for your website
+Plugin Name: IdSound paramètres
+Description: Plugin pour gérer les paramètres du plugin IdSound
 Version: 2.0
-Author: Ekhos
+Author: IdSound
 */
 
 define('EKHOS_DIR', __FILE__);

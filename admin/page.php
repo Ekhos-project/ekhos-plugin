@@ -45,6 +45,7 @@ function ekhos_ids_settings_page()
     >
         <?php
         include_once "pages/header.php";
+        include_once "pages/about.php";
         include_once "pages/linked.php";
         include_once "pages/character.php";
         include_once "pages/sound.php";

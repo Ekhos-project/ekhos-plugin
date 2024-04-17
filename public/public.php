@@ -21,7 +21,7 @@ $page_id = get_the_ID();
     </div>
 
     <div class="idsound-public_menu" :class="{ 'active': menuOpen }">
-        <div class="idsound-public_menu_content" :class="{ 'active': menuOpen }">
+        <div class="idsound-public_menu_content" :class="{ 'active': menuOpen }" @mousedown.outside="closeMenu()">
             <div class="idsound-public_menu_content_back" @click="closeMenu()">
                 <span>Retour</span>
             </div>

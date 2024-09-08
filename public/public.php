@@ -44,7 +44,7 @@ $page_id = get_the_ID();
 
             <div class="idsound-public_menu_content_enable">
                 <span>IdSound autorisé : </span>
-                <div class="" :class="{ 'active' : soundAllowed }" @click="activeSound()">
+                <div class="" :class="{ 'active' : soundAllowed }" @click="toggleSound()">
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@ $page_id = get_the_ID();
                     let audio = new Audio(default_sound)
                     await audio.play()
                     audio.pause()
-                    this.soundAllowed = true;
+                    this.soundAllowed = window.localStorage.getItem('idsound_sound') === 'true';
                     return true;
                 } catch (error) {
                     return false;
@@ -110,14 +110,16 @@ $page_id = get_the_ID();
                 this.audios = audios
                 this.characters = response.characters
                 if(this.characters) {
-                    this.activeCharacter = this.characters[0].id
+                    this.activeCharacter = window.localStorage.getItem('idsound_character') || this.characters[0].id
                 }
             },
             setActiveCharacter(character) {
                 this.activeCharacter = character
+                window.localStorage.setItem('idsound_character', character);
             },
-            activeSound() {
-                this.soundAllowed = true
+            toggleSound() {
+                this.soundAllowed = !this.soundAllowed
+                window.localStorage.setItem('idsound_sound', this.soundAllowed);
             },
             audioLoop() {
                 setInterval(() => {
@@ -135,7 +137,7 @@ $page_id = get_the_ID();
                     if(!a.selector) {
                         return
                     }
-                    if(a.character != this.activeCharacter) {
+                    if(a.character != parseInt(this.activeCharacter)) {
                         a.active = false
                         a.audio.pause()
                         a.audio.currentTime = 0

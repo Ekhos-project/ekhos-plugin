@@ -110,11 +110,12 @@ $page_id = get_the_ID();
                 this.audios = audios
                 this.characters = response.characters
                 if(this.characters) {
-                    this.activeCharacter = this.characters[0].id
+                    this.activeCharacter = window.localStorage.getItem('idsound_character') || this.characters[0].id
                 }
             },
             setActiveCharacter(character) {
                 this.activeCharacter = character
+                window.localStorage.setItem('idsound_character', character);
             },
             toggleSound() {
                 this.soundAllowed = !this.soundAllowed
@@ -136,7 +137,7 @@ $page_id = get_the_ID();
                     if(!a.selector) {
                         return
                     }
-                    if(a.character != this.activeCharacter) {
+                    if(a.character != parseInt(this.activeCharacter)) {
                         a.active = false
                         a.audio.pause()
                         a.audio.currentTime = 0

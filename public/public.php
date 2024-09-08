@@ -44,7 +44,7 @@ $page_id = get_the_ID();
 
             <div class="idsound-public_menu_content_enable">
                 <span>IdSound autorisé : </span>
-                <div class="" :class="{ 'active' : soundAllowed }" @click="activeSound()">
+                <div class="" :class="{ 'active' : soundAllowed }" @click="toggleSound()">
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@ $page_id = get_the_ID();
                     let audio = new Audio(default_sound)
                     await audio.play()
                     audio.pause()
-                    this.soundAllowed = true;
+                    this.soundAllowed = window.localStorage.getItem('idsound_sound') === 'true';
                     return true;
                 } catch (error) {
                     return false;
@@ -116,8 +116,9 @@ $page_id = get_the_ID();
             setActiveCharacter(character) {
                 this.activeCharacter = character
             },
-            activeSound() {
-                this.soundAllowed = true
+            toggleSound() {
+                this.soundAllowed = !this.soundAllowed
+                window.localStorage.setItem('idsound_sound', this.soundAllowed);
             },
             audioLoop() {
                 setInterval(() => {
